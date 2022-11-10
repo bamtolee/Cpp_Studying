@@ -9,8 +9,8 @@ int main()
 
     long long int a, b, c;
     long long int i = 1;
-    cin >> a >> b >> c;
 
+    cin >> a >> b >> c;
     while(b)
     {
         if(b % 2 == 1) 
