@@ -17,11 +17,11 @@ int main()
     }
     for(auto i : v)
     {
+        if(i == 1) continue;
         int j = 2;
-        for(; j < i; j++)
+        for(; j * j <= i; j++)
             if(i % j == 0) break;
-        if(i == j) count++;
-        else continue;
+        if(j * j > i) count++;
     }
     cout << count;
     return 0;
