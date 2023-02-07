@@ -14,15 +14,17 @@ int main()
     cin >> tc;
     for(int i = 0; i < tc; i++)
     {
-        int n, m, w, *dis, *isqueue, ret = 1;
+        int n, m, w, *dis, *isqueue, *vcount, ret = 0;
         vector<pair<int, int>> edge[501];
         queue<int> spfa;
 
         cin >> n >> m >> w;
         dis = new int[n + 1];
         isqueue = new int[n + 1];
-        for(int i = 0; i <= n; i++)
-            isqueue[i] = 0;
+        vcount = new int[n + 1];
+        for(int j = 0; j <= n; j++)
+            isqueue[j] = 0;
+
         for(int j = 0; j < m; j++)
         {
             int tmp1, tmp2, cost;
@@ -39,43 +41,47 @@ int main()
             edge[tmp1].push_back(make_pair(tmp2, -1 * cost));
         }
 
-        for(int k = 2; k <= n; k++)
-            dis[k] = 10002;
-        spfa.push(1);
-        isqueue[1] = 1;
-        while(!spfa.empty())
-        {
-            int tmp1 = spfa.front();
+        for(int j = 2; j <= n; j++)
+            dis[j] = 10002;
 
-            spfa.pop();
-            isqueue[tmp1] = 0;
-            for(auto infor : edge[tmp1])
+        for(int j = 1; j <= n; j++)
+        {
+            if(ret == 1) break;
+            for(int k = 0; k <= n; k++)
+                vcount[k] = 0;
+            
+            dis[j] = 0;
+            spfa.push(j);
+            isqueue[j] = 1;
+            vcount[j]++;
+            while(!spfa.empty())
             {
-                if(dis[tmp1] + infor.second < dis[infor.first])
+                if(ret == 1) break;
+                int tmp1 = spfa.front();
+
+                spfa.pop();
+                isqueue[tmp1] = 0;
+                for(auto infor : edge[tmp1])
                 {
-                    dis[infor.first] = dis[tmp1] + infor.second;
-                    if(isqueue[infor.first] == 0)
+                    if(dis[tmp1] + infor.second < dis[infor.first])
                     {
-                        isqueue[infor.first] = 1;
-                        spfa.push(infor.first);
+                        dis[infor.first] = dis[tmp1] + infor.second;
+                        if(isqueue[infor.first] == 0)
+                        {
+                            vcount[infor.first]++;
+                            if(vcount[infor.first] >= n)
+                            {
+                                ret = 1;
+                                break;
+                            }
+                            isqueue[infor.first] = 1;
+                            spfa.push(infor.first);
+                        }
                     }
                 }
             }
         }
-        /*
-        for(int j = 1; j <= n; j++)
-        {
-            for (int k = 0; k < edge[j].size(); k++)
-            {
-		        if (dis[edge[j][k].first] > edge[j][k].second + dis[j])
-                {
-                    ret = 0;
-                    break;
-                }
-            }
-		}
-        */
-        if(ret == 0) cout << "YES" << "\n";
+        if(ret == 1) cout << "YES" << "\n";
         else cout << "NO" << "\n";
         delete[] dis;
     }
