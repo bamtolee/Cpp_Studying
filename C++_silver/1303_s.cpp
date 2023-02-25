@@ -6,13 +6,12 @@ char warField[100][100];
 int visit[100][100];
 int dr[4] = {0, 1, 0, -1};
 int dc[4] = {1, 0, -1, 0};
-int depth = 0, depthM = 0;
+int depth = 0;
 
 void dfs(int n, int m, int curR, int curC, char colour)
 {
     visit[curR][curC] = 1;
     depth++;
-    if(depth > depthM) depthM = depth;
 
     for(int i = 0; i < 4; i++)
     {
@@ -53,11 +52,10 @@ int main()
             {
                 char colour = warField[i][j];
                 depth = 0;
-                depthM = 0;
                 dfs(n, m, i, j, colour);
 
-                if(colour == 'W') wSum += depthM * depthM;
-                else if(colour == 'B') bSum += depthM * depthM;
+                if(colour == 'W') wSum += depth * depth;
+                else if(colour == 'B') bSum += depth * depth;
             }
         }
     }
