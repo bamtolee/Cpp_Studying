@@ -9,7 +9,6 @@ int dr[4] = {0, 1, 0, -1};
 int dc[4] = {-1, 0, 1, 0};
 vector<co> pvloc;
 int *virusCombination;
-int *pVirus;
 int ret = 2000000000;
 
 void virusBFS(int n, int m)
@@ -75,7 +74,7 @@ void virusC(int n, int m, int start, int count)
     {
         for(int i = start; i < pvloc.size(); i++)
         {
-            virusCombination[count] = pVirus[i];
+            virusCombination[count] = i;
             virusC(n, m, i + 1, count + 1);
         }
     }
@@ -100,9 +99,6 @@ int main()
                 pvloc.push_back({i, j});
         }
     }
-    pVirus = new int[pvloc.size()];
-    for(int i = 0; i < pvloc.size(); i++)
-        pVirus[i] = i;
 
     virusC(n, m, 0, 0);
     cout << (ret == 2000000000 ? -1 : ret);
