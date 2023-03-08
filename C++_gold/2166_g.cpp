@@ -17,6 +17,8 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
+    cout << fixed;
+    cout.precision(1);
 
     int n;
     double ret = 0;
@@ -31,8 +33,8 @@ int main()
     for(int i = 0; i < n - 2; i++)
         ret += 0.5 * ccw(v[0], v[i + 1], v[i + 2]);
     if(ret > 0)
-        printf("%.1lf", ret);
+        cout << ret;
     else
-        printf("%.1lf", -1.0 * ret);
+        cout << -1.0 * ret;
     return 0;
 }
