@@ -29,7 +29,7 @@ void dijkstra(int n, int t, int m)
         edge tmp = pq.top();
         int cur = tmp.first;
         pq.pop();
-
+        if(tmp.second > d[cur]) continue;
         for(int i = 0; i < (int)spot[cur].size(); i++)
         {
             int to = spot[cur][i].first;

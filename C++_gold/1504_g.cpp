@@ -16,11 +16,9 @@ struct compare {
 int dijkstra(int n, int start, int check)
 {
     priority_queue<edge, vector<edge>, compare> pq;
-    bool *visit = new bool[n + 1];
     int *d = new int[n + 1];
     int inf = 2100000000;
     fill(d, d + n + 1, inf);
-    fill(visit, visit + n + 1, false);
 
     d[start] = 0;
     pq.push({start, d[start]});
@@ -29,12 +27,11 @@ int dijkstra(int n, int start, int check)
         edge tmp = pq.top();
         pq.pop();
         int cur = tmp.first;
-        if(visit[cur]) continue;
-        visit[cur] = true;
+        if(tmp.second > d[cur]) continue;
         for(int i = 0; i < vertex[cur].size(); i++)
         {
             int to = vertex[cur][i].first;
-            if(!visit[to] && vertex[cur][i].second + tmp.second < d[to])
+            if(vertex[cur][i].second + tmp.second < d[to])
             {
                 d[to] = vertex[cur][i].second + tmp.second;
                 pq.push({to, d[to]});

@@ -16,9 +16,7 @@ int dijkstra(int n, int start, int end)
 {
     priority_queue<edge, vector<edge>, compare> pq;
     int *d = new int[n + 1];
-    bool *visit = new bool[n + 1];
     int inf = 2100000000;
-    fill(visit, visit + n + 1, false);
     fill(d, d + n + 1, inf);
 
     d[start] = 0;
@@ -28,13 +26,12 @@ int dijkstra(int n, int start, int end)
         edge tmp = pq.top();
         int cur = tmp.first;
         pq.pop();
-        if(visit[cur]) continue;
-        visit[cur] = true;
+        if(d[cur] < tmp.second) continue;
 
         for(int i = 0; i < vertex[cur].size(); i++)
         {
             int to = vertex[cur][i].first;
-            if(!visit[to] && vertex[cur][i].second + tmp.second < d[to])
+            if(vertex[cur][i].second + tmp.second < d[to])
             {
                 d[to] = vertex[cur][i].second + tmp.second;
                 pq.push({to, d[to]});
