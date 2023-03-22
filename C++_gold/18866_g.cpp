@@ -18,7 +18,7 @@ int main()
     cin.tie(0);
     cout.tie(0);
 
-    int n, x1, x2, ret = -1;
+    int n, x1, x2;
     cin >> n;
     for(int i = 0; i < n; i++)
     {
@@ -52,7 +52,7 @@ int main()
     for(int i = 0; i < n - 1; i++)
         if(nyHappy[i + 1] < youngHappy[i] && nyPiro[i + 1] > youngPiro[i])
             k = i;
-            
+
     cout << k + 1;
     return 0;
 }
